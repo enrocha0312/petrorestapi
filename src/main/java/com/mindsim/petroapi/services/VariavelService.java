@@ -1,0 +1,50 @@
+package com.mindsim.petroapi.services;
+
+import com.mindsim.petroapi.entities.Variavel;
+import com.mindsim.petroapi.repositories.VariavelRepository;
+import com.mindsim.petroapi.shared.dto.VariavelDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class VariavelService {
+
+    @Autowired
+    private VariavelRepository variavelRepository;
+
+    public List<VariavelDTO> findAll(){
+        return variavelRepository
+                .findAll()
+                .stream()
+                .map(v->new ModelMapper().map(v, VariavelDTO.class))
+                .collect(Collectors.toList());
+    }
+    public Optional<VariavelDTO> findById(Integer id){
+        Variavel v = variavelRepository.findById(id).get();
+        return Optional.of(new ModelMapper().map(v, VariavelDTO.class));
+    }
+
+    public void deleteById(Integer id){
+        variavelRepository.deleteById(id);
+    }
+
+    public VariavelDTO add(VariavelDTO variavelDTO){
+        variavelDTO.setId(null);
+        Variavel v = new ModelMapper().map(variavelDTO, Variavel.class);
+        v = variavelRepository.save(v);
+        variavelDTO.setId(v.getId());
+        return variavelDTO;
+    }
+
+    public VariavelDTO update(Integer id, VariavelDTO variavelDTO){
+        variavelDTO.setId(id);
+        Variavel variavel = new ModelMapper().map(variavelDTO, Variavel.class);
+        variavelRepository.save(variavel);
+        return variavelDTO;
+    }
+}
