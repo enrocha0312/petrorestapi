@@ -2,6 +2,7 @@ package com.mindsim.petroapi.services;
 
 import com.mindsim.petroapi.entities.Variavel;
 import com.mindsim.petroapi.repositories.VariavelRepository;
+import com.mindsim.petroapi.services.exceptions.ResourceNotFoundException;
 import com.mindsim.petroapi.shared.dto.VariavelDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ public class VariavelService {
     }
     public Optional<VariavelDTO> findById(Integer id){
         Variavel v = variavelRepository.findById(id).get();
-        return Optional.of(new ModelMapper().map(v, VariavelDTO.class));
+        return Optional.of(Optional.of(new ModelMapper().map(v, VariavelDTO.class))
+                .orElseThrow(()->new ResourceNotFoundException(id)));
     }
 
     public void deleteById(Integer id){
