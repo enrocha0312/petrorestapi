@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("petroapi")
 public class VariavelController {
-
     @Autowired
     private VariavelService variavelService;
     @GetMapping
