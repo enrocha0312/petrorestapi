@@ -4,6 +4,7 @@ import com.mindsim.petroapi.services.VariavelService;
 import com.mindsim.petroapi.shared.VariavelRequest;
 import com.mindsim.petroapi.shared.VariavelResponse;
 import com.mindsim.petroapi.shared.dto.VariavelDTO;
+import com.mindsim.petroapi.shared.wrappers.VariavelWrapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,4 +50,5 @@ public class VariavelController {
         variavelService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
