@@ -1,7 +1,6 @@
 package com.mindsim.petroapi.shared.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mindsim.petroapi.entities.Variavel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
