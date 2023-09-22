@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class MedidaService {
     }
     public MedidaDTO add(MedidaDTO medidaDto){
         medidaDto.setTagId(null);
-        medidaDto.setTimestamp(LocalDateTime.now());
+        medidaDto.setTimestamp(Instant.now());
         Medida m = new ModelMapper().map(medidaDto, Medida.class);
         m = medidaRepository.save(m);
         medidaDto.setTagId(m.getTagId());

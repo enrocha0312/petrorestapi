@@ -3,11 +3,14 @@ package com.mindsim.petroapi.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mindsim.petroapi.entities.IdClasses.MedidaId;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,11 +20,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @IdClass(MedidaId.class)
 public class Medida implements Serializable {
+    @NotEmpty
     private Double valor;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT")
+    @NotEmpty
+    @CreationTimestamp
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "_timestamp")
     @Id
-    private LocalDateTime timestamp;
+    private Instant timestamp;
+    @NotEmpty
     @Id
     @Column(name = "tagid")
     private Integer tagId;
