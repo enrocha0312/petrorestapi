@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class MedidaResponse implements Serializable {
     private Double valor;
     @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss")
-    private Instant timestamp;
-    private VariavelResponse variavelResponse;
-    private Integer tagId;
+    private LocalDateTime timestamp;
+    private VariavelResponse variavel;
 }

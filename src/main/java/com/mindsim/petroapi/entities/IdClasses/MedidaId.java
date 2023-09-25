@@ -12,6 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedidaId {
-    private Instant timestamp;
-    private Integer tagId;
+    private LocalDateTime timestamp;
+    private Variavel variavel;
 }

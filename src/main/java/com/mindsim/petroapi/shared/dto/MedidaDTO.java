@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 public class MedidaDTO implements Serializable {
     private Double valor;
     @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss")
-    private Instant timestamp;
-    private Integer tagId;
+    private LocalDateTime timestamp;
     private VariavelDTO variavelDTO;
 }

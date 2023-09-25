@@ -23,15 +23,11 @@ public class Medida implements Serializable {
     @NotEmpty
     private Double valor;
     @NotEmpty
-    @CreationTimestamp
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "_timestamp")
     @Id
-    private Instant timestamp;
-    @NotEmpty
+    private LocalDateTime timestamp;
     @Id
-    @Column(name = "tagid")
-    private Integer tagId;
     @ManyToOne
     @JoinColumn(name = "tagid")
     private Variavel variavel;
