@@ -2,6 +2,7 @@ package com.mindsim.petroapi.services;
 
 import com.mindsim.petroapi.entities.Variavel;
 import com.mindsim.petroapi.repositories.VariavelRepository;
+import com.mindsim.petroapi.services.exceptions.ResourceNotFoundException;
 import com.mindsim.petroapi.shared.dto.VariavelDTO;
 import net.bytebuddy.matcher.StringMatcher;
 import org.junit.jupiter.api.Assertions;
@@ -63,6 +64,16 @@ class VariavelServiceTest {
         assertEquals(VariavelDTO.class, response.getClass());
         assertEquals(response.getId(), ID);
         assertEquals(response.getMfgName(), MFG_NAME);
+    }
+    @Test
+    void findByIdFindsNoObject(){
+        when(variavelRepository.findById(anyInt())).thenThrow(new ResourceNotFoundException(ID));
+        try{
+            variavelService.findById(ID);
+        }catch (Exception ex){
+            assertEquals(ResourceNotFoundException.class, ex.getClass());
+            assertEquals("Resource not found. Id "+ID, ex.getMessage());
+        }
     }
 
     @Test
