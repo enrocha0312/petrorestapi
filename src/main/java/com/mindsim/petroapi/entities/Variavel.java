@@ -2,6 +2,7 @@ package com.mindsim.petroapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Table(name = "variavel")
 @NoArgsConstructor
+@Builder
 public class Variavel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

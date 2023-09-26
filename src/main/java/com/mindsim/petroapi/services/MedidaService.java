@@ -3,6 +3,7 @@ package com.mindsim.petroapi.services;
 
 import com.mindsim.petroapi.entities.IdClasses.MedidaId;
 import com.mindsim.petroapi.entities.Medida;
+import com.mindsim.petroapi.entities.Variavel;
 import com.mindsim.petroapi.repositories.MedidaRepository;
 import com.mindsim.petroapi.shared.dto.MedidaDTO;
 import com.mindsim.petroapi.shared.dto.VariavelDTO;
@@ -38,11 +39,19 @@ public class MedidaService {
     public Optional<MedidaDTO> findById(MedidaId composeId){
         return Optional.of(new ModelMapper().map(medidaRepository.findById(composeId).get(), MedidaDTO.class));
     }
-    public Set<MedidaDTO> findByTagId(Integer tagId){
-        return medidaRepository.findByTagId(tagId)
+    public List<MedidaDTO> findByTagId(Integer tagId){
+        List<MedidaDTO> medidaDTOList = medidaRepository.findByTagId(tagId)
                 .stream()
                 .map(m -> new ModelMapper().map(m, MedidaDTO.class))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
+        List<VariavelDTO> variavelList = medidaRepository.findByTagId(tagId)
+                .stream()
+                .map(v -> new ModelMapper().map(v.getVariavel(), VariavelDTO.class))
+                .collect(Collectors.toList());
+        for(MedidaDTO m : medidaDTOList){
+            m.setVariavelDTO(variavelList.get(medidaDTOList.indexOf(m)));
+        }
+        return medidaDTOList;
     }
     public void deleteById(MedidaId composeId){
         medidaRepository.deleteById(composeId);

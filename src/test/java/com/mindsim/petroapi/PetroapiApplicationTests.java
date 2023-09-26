@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class PetroapiApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		PetroapiApplication.main(new String[]{});
 	}
+
 
 }

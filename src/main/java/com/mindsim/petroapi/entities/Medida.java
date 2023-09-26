@@ -5,6 +5,7 @@ import com.mindsim.petroapi.entities.IdClasses.MedidaId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "medida")
 @NoArgsConstructor
+@Builder
 @IdClass(MedidaId.class)
 public class Medida implements Serializable {
     @NotEmpty

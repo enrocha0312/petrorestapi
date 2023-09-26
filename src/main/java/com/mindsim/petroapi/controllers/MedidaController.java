@@ -70,11 +70,19 @@ public class MedidaController {
         return new ResponseEntity<>(Optional.of(medidaResponse), HttpStatus.CREATED);
     }
     @GetMapping("/{tagId}")
-    public ResponseEntity<Set<MedidaResponse>> findByTagId(@PathVariable Integer tagId){
-        return new ResponseEntity<>(medidaService.findByTagId(tagId)
+    public ResponseEntity<List<MedidaResponse>> findByTagId(@PathVariable Integer tagId){
+        List<MedidaResponse> medidaResponseList = medidaService.findByTagId(tagId)
                 .stream()
                 .map(m->new ModelMapper().map(m, MedidaResponse.class))
-                .collect(Collectors.toSet()), HttpStatus.OK);
+                .collect(Collectors.toList());
+        List<VariavelResponse> variavelResponseList = medidaService.findByTagId(tagId)
+                .stream()
+                .map(m->new ModelMapper().map(m.getVariavelDTO(), VariavelResponse.class))
+                .collect(Collectors.toList());
+        for(MedidaResponse m : medidaResponseList){
+            m.setVariavel(variavelResponseList.get(medidaResponseList.indexOf(m)));
+        }
+        return new ResponseEntity<>(medidaResponseList, HttpStatus.OK);
     }
     @PutMapping("/{id}/{timestamp}")
     public ResponseEntity<MedidaResponse> update(@PathVariable Integer id, @PathVariable LocalDateTime timestamp, @RequestBody MedidaRequest medidaRequest){

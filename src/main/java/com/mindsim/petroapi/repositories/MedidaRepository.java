@@ -5,10 +5,11 @@ import com.mindsim.petroapi.entities.Medida;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDateTime;
-import java.util.Set;
+
+import java.util.List;
+
 
 public interface MedidaRepository extends JpaRepository<Medida, MedidaId> {
     @Query(value="select * from medida where tagid = ?1", nativeQuery = true)
-    Set<Medida> findByTagId(Integer tagId);
+    List<Medida> findByTagId(Integer tagId);
 }
