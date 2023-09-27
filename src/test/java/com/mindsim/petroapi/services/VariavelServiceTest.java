@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,7 +54,15 @@ class VariavelServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAllWorksSuccessfully() {
+        Variavel variavel2 = Variavel.builder().
+                tag("tag2").mfgName("mfg2").plataforma("plataforma2").name("nome2").id(2).build();
+        when(variavelRepository.findAll()).thenReturn(List.of(variavel, variavel2));
+        List<VariavelDTO> response = variavelService.findAll();
+        assertNotNull(response);
+        assertEquals(2, response.size());
+        assertEquals(1, response.get(0).getId());
+        assertEquals(2, response.get(1).getId());
     }
 
     @Test

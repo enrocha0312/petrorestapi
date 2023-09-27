@@ -1,11 +1,16 @@
 package com.mindsim.petroapi.services;
 
 import com.mindsim.petroapi.entities.Variavel;
+import com.mindsim.petroapi.repositories.MedidaRepository;
 import com.mindsim.petroapi.repositories.VariavelRepository;
+import com.mindsim.petroapi.services.exceptions.DatabaseException;
 import com.mindsim.petroapi.services.exceptions.ResourceNotFoundException;
 import com.mindsim.petroapi.shared.dto.VariavelDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +22,6 @@ public class VariavelService {
 
     @Autowired
     private VariavelRepository variavelRepository;
-
     public List<VariavelDTO> findAll(){
         return variavelRepository
                 .findAll()
@@ -32,7 +36,13 @@ public class VariavelService {
     }
 
     public void deleteById(Integer id){
-        variavelRepository.deleteById(id);
+        try {
+            variavelRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public VariavelDTO add(VariavelDTO variavelDTO){
@@ -44,9 +54,13 @@ public class VariavelService {
     }
 
     public VariavelDTO update(Integer id, VariavelDTO variavelDTO){
-        variavelDTO.setId(id);
-        Variavel variavel = new ModelMapper().map(variavelDTO, Variavel.class);
-        variavelRepository.save(variavel);
-        return variavelDTO;
+        try {
+            variavelDTO.setId(id);
+            Variavel variavel = new ModelMapper().map(variavelDTO, Variavel.class);
+            variavelRepository.save(variavel);
+            return variavelDTO;
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 }
