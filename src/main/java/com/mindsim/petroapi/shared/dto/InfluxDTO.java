@@ -5,10 +5,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-
-public class InfluxDTO {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class InfluxDTO implements Serializable {
     private Integer id;
     private LocalDateTime time;
     private Double value;
