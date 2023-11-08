@@ -1,5 +1,6 @@
 package com.mindsim.petroapi.entities;
 
+import com.mindsim.petroapi.entities.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,10 +21,13 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_usuario")
     private Integer id;
-    @Column(nullable = false, unique = true)
-    private String email;
-    @Column(nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
+    private String login;
+    @Column(name = "senha", nullable = false)
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "perfil", nullable = false)
+    private UserRole role;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
