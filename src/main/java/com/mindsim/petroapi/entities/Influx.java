@@ -18,18 +18,20 @@ import java.time.LocalDateTime;
 @Table(name = "influx_dados_enviados")
 public class Influx implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotEmpty
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "_time")
+    @Column(name = "hora")
     private LocalDateTime time;
     @NotEmpty
+    @Column(name = "valor")
     private Double value;
     private String field;
     private String measurement;
     private String mfg;
     @NotEmpty
+    @Column(name = "nome")
     private String name;
     private String plataforma;
 }

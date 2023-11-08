@@ -1,8 +1,15 @@
 package com.mindsim.petroapi.shared;
 
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class InfluxRequest {
+import java.io.Serializable;
+import java.time.LocalDateTime;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class InfluxRequest implements Serializable {
     private LocalDateTime time;
     private Double value;
     private String field;
