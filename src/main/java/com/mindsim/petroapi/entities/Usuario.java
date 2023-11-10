@@ -23,10 +23,10 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_usuario")
     private Integer id;
-    @Column(name = "email", nullable = false, unique = true)
-    private String login;
-    @Column(name = "senha", nullable = false)
-    private String password;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false)
+    private String senha;
     @Enumerated(EnumType.STRING)
     @Column(name = "perfil", nullable = false)
     private UserRole role;
