@@ -5,7 +5,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +14,8 @@ import java.util.Optional;
 
 @Component
 public class JWTTokenService {
-    @Value("${jwt.secret}")
-    private static String SECRET;
+    //@Value("${jwt.secret}")
+    private static final String SECRET = "mindsimchavesecreta";
     private final int EXPIRATION = 7200000;//2 horas
     public String generateToken(Authentication authentication){
         Usuario usuario = (Usuario) authentication.getPrincipal();

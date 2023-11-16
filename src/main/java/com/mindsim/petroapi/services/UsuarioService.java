@@ -2,7 +2,14 @@ package com.mindsim.petroapi.services;
 
 import com.mindsim.petroapi.entities.Usuario;
 import com.mindsim.petroapi.repositories.UsuarioRepository;
+import com.mindsim.petroapi.security.services.JWTTokenService;
+import com.mindsim.petroapi.shared.LoginResponse;
+import com.mindsim.petroapi.shared.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +19,15 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
+    private static final String HEADER_PREFIX = "Bearer ";
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JWTTokenService jwtTokenService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     public List<Usuario> findAll(){
         return usuarioRepository.findAll();
@@ -35,5 +47,19 @@ public class UsuarioService {
         }
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
+    }
+    public LoginDTO doLogin(String email, String senha){
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(email,senha);
+        try{
+            Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = HEADER_PREFIX + jwtTokenService.generateToken(authentication);
+            Usuario usuario = usuarioRepository.findByEmail(email).get();
+            return new LoginDTO(token, usuario);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }

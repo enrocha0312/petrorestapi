@@ -17,7 +17,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Optional;
 
@@ -32,16 +31,17 @@ public class SecurityFilter extends OncePerRequestFilter {
     //Metodo principal onde toda a requisicao tem de bater antes de chegar ao endpoint
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = getToken(request);
-        Optional<Integer> id = jwtTokenService.obtainIdFromUsuario(token);
-        if(!id.isPresent()){
-            throw new InputMismatchException("Token invalido");
+        var token = getToken(request);
+        if(token!=null){
+            Optional<Integer> id = jwtTokenService.obtainIdFromUsuario(token);
+            if(id.isPresent()) {
+                Usuario usuario = usuarioRepository.findById(id.get()).get();
+                UserDetails userDetails = authenticationService.loadUserByUsername(usuario.getEmail());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
-        Usuario usuario = usuarioRepository.findById(id.get()).get();
-        UserDetails userDetails = authenticationService.loadUserByUsername(usuario.getEmail());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
     private String getToken(HttpServletRequest request){

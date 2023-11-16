@@ -30,10 +30,10 @@ public class TestFTPSConnection {
                 System.out.println("Server not connected");
                 return;
             }
-            if(!ftpsClient.login("fmurad.mindsim", "senha")){
+            if(!ftpsClient.login("fmurad.mindsim", "04pBQaWvtV")){
                 System.out.println("invalid user");
             }else{
-                ftpsClient.login("fmurad.mindsim", "senha");
+                ftpsClient.login("fmurad.mindsim", "04pBQaWvtV");
                 System.out.println("User accepted");
             }
 
