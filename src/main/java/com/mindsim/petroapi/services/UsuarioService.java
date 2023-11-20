@@ -3,7 +3,6 @@ package com.mindsim.petroapi.services;
 import com.mindsim.petroapi.entities.Usuario;
 import com.mindsim.petroapi.repositories.UsuarioRepository;
 import com.mindsim.petroapi.security.services.JWTTokenService;
-import com.mindsim.petroapi.shared.LoginResponse;
 import com.mindsim.petroapi.shared.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,7 +58,6 @@ public class UsuarioService {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-
         return null;
     }
 }

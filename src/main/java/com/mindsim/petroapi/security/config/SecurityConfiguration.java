@@ -1,7 +1,6 @@
 package com.mindsim.petroapi.security.config;
 
 import com.mindsim.petroapi.security.filters.SecurityFilter;
-import com.mindsim.petroapi.security.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

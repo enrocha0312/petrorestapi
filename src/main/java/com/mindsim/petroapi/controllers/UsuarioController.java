@@ -40,9 +40,9 @@ public class UsuarioController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
     @PostMapping("/login")
-    public LoginResponse login (@RequestBody LoginRequest request){
+    public ResponseEntity<LoginResponse> login (@RequestBody LoginRequest request){
         LoginDTO loginDTO = usuarioService.doLogin(request.getEmail(), request.getSenha());
         LoginResponse loginResponse = new ModelMapper().map(loginDTO, LoginResponse.class);
-        return loginResponse;
+        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 }
