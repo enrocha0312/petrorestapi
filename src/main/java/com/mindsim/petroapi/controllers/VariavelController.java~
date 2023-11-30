@@ -51,7 +51,7 @@ public class VariavelController {
     }
 
     @PostMapping("listofvariables")
-    public ResponseEntity<List<VariavelResponse>> sendListOfVariables(@RequestBody Map<String, List<VariavelRequest>> listMap){
+    public ResponseEntity<List<VariavelResponse>> sendListOfVariables(Map<String, List<VariavelRequest>> listMap){
         if(listMap.keySet().size() != 1)return new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_REQUEST);
         AtomicReference<VariavelDTO> variavelDTOAtomicReference = new AtomicReference<>();
         List<VariavelResponse> responseList = new ArrayList<>();
