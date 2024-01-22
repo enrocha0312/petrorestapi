@@ -1,5 +1,6 @@
 package com.mindsim.petroapi.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.mindsim.petroapi.entities.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

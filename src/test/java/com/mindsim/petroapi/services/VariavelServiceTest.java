@@ -4,13 +4,10 @@ import com.mindsim.petroapi.entities.Variavel;
 import com.mindsim.petroapi.repositories.VariavelRepository;
 import com.mindsim.petroapi.services.exceptions.ResourceNotFoundException;
 import com.mindsim.petroapi.shared.dto.VariavelDTO;
-import net.bytebuddy.matcher.StringMatcher;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
