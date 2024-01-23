@@ -1,4 +1,4 @@
-package com.mindsim.petroapi.entities;
+package com.mindsim.petroapi.email.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
