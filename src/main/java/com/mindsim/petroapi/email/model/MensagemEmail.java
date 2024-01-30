@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,4 +15,6 @@ public class MensagemEmail {
     private String texto;
     private String remetente;
     private List<String> destinatarios;
+    private Path caminhoArquivo;
+    private String nomeArquivo;
 }
