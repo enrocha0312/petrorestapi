@@ -15,6 +15,5 @@ public class MensagemEmail {
     private String texto;
     private String remetente;
     private List<String> destinatarios;
-    private Path caminhoArquivo;
-    private String nomeArquivo;
+    private String anexo;
 }

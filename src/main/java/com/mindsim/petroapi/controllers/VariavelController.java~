@@ -35,7 +35,7 @@ public class VariavelController {
         );
     }
     @PostMapping
-    public ResponseEntity<VariavelResponse> add(@RequestBody VariavelRequest variavelRequest){
+    public ResponseEntity<VariavelResponse> add(@RequestBody VariavelRequest variavelRequest, @RequestHeader Map<String, String> headers){
         VariavelDTO variavelDTO = variavelService.add(new ModelMapper().map(variavelRequest, VariavelDTO.class));
         return new ResponseEntity<>(new ModelMapper().map(variavelDTO, VariavelResponse.class), HttpStatus.CREATED);
     }
@@ -51,7 +51,7 @@ public class VariavelController {
     }
 
     @PostMapping("listofvariables")
-    public ResponseEntity<List<VariavelResponse>> sendListOfVariables(Map<String, List<VariavelRequest>> listMap){
+    public ResponseEntity<List<VariavelResponse>> sendListOfVariables(@RequestBody Map<String, List<VariavelRequest>> listMap){
         if(listMap.keySet().size() != 1)return new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_REQUEST);
         AtomicReference<VariavelDTO> variavelDTOAtomicReference = new AtomicReference<>();
         List<VariavelResponse> responseList = new ArrayList<>();
